@@ -13,7 +13,15 @@ function addTodo (input) {
   return todos
 }
 
+function getCompleteTodos () {
+  let completeTodos = todos.filter(function (todo, idx, arr) {
+    return todo.complete === "true"
+  })
+  console.log(completeTodos)
+}
+
 module.exports = {
   getTodos: getTodos,
-  addTodo: addTodo
+  addTodo: addTodo,
+  getCompleteTodos: getCompleteTodos
 }

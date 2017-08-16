@@ -22,10 +22,14 @@ app.get('/', function (req, res) {
   res.render('index')
 })
 
+//posting new todos
 app.post('/todos', function (req, res) {
   dal.addTodo(req.body)
-  res.send()
+  res.render('index')
 })
+
+//To do from here (haha): create partials for complete and incomplete; incomplete partials should be populated from addToDo. Incomplete partial needs buttons with onclick function to post to app.post /complete, which will filter array based on complete ones. Complete ones will push to complete partial. Style it out.
+
 
 
 
