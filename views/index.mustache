@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  {{>_head}}
+  <body>
+    <header>
+      <h1>Tubular to-do list!</h1>
+    </header>
+    <main>
+      <form class="new-todo" action="/todos" method="post">
+        <input type="text" name="text" value="" placeholder="yoooo, type your tasks in here!" size=40 required>
+      </form>
+      <div class="todo-container">
+        {{#incomplete}}
+        {{/incomplete}}
+        {{#complete}}
+        {{/complete}}
+      </div>
+    </main>
+  </body>
+</html>
