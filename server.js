@@ -24,12 +24,22 @@ app.get('/', function (req, res) {
 
 //posting new todos
 app.post('/todos', function (req, res) {
-  dal.addTodo(req.body)
-  res.render('index')
+  dal.addTodo(req.body);
+  const newTodos = dal.getIncompleteTodos();
+  console.log(newTodos);
+  res.render('_incomplete', newTodos)
+})
+
+//separating complete todos
+app.post('/complete', function (req, res) {
+  const completeTodos = dal.getCompleteTodos();
+  console.log(completeTodos)
+  res.render('_complete', completeTodos)
 })
 
 //To do from here (haha): create partials for complete and incomplete; incomplete partials should be populated from addToDo. Incomplete partial needs buttons with onclick function to post to app.post /complete, which will filter array based on complete ones. Complete ones will push to complete partial. Style it out.
 
+//wait, why two partials? Just do one and have it populate in two places. Can I do that?
 
 
 
