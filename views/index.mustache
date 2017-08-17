@@ -10,12 +10,23 @@
         <input type="text" name="text" value="" placeholder="yoooo, type your tasks in here!" size=40 required>
       </form>
       <div class="todo-container">
-        {{#todos}}
-          <h2>Not done yet!</h2>
+
+        <h2>Stuff to do:</h2>
+        {{#incomplete}}
           {{>_incomplete}}
-          <h2>Yooo, these are done!!</h2>
+        {{/incomplete}}
+        {{^incomplete}}
+          <p>You did all the things!</p>
+        {{/incomplete}}
+
+        <h2>Done stuff!</h2>
+        {{#complete}}
           <del>{{>_complete}}</del>
-        {{/todos}}
+          <br>
+        {{/complete}}
+        {{^complete}}
+          <p>You didn't do anything yet.</p>
+        {{/complete}}
       </div>
     </main>
   </body>

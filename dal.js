@@ -13,6 +13,12 @@ function addTodo (input) {
   return todos
 }
 
+function finishTodo (input) {
+  let finishedTodo = input;
+  finishedTodo.complete = "true";
+  return todos
+}
+
 function getCompleteTodos () {
   let completeTodos = todos.filter(function (todo, idx, arr) {
     return todo.complete === "true"
@@ -30,6 +36,7 @@ function getIncompleteTodos () {
 module.exports = {
   getTodos: getTodos,
   addTodo: addTodo,
+  finishTodo: finishTodo,
   getCompleteTodos: getCompleteTodos,
   getIncompleteTodos: getIncompleteTodos
 }

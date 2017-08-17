@@ -19,30 +19,23 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 //get request for homepage
 app.get('/', function (req, res) {
-  res.render('index')
+  const completeTodos = dal.getCompleteTodos()
+  const newTodos = dal.getIncompleteTodos();
+  res.render('index', { incomplete: newTodos, complete: completeTodos})
 })
 
 //posting new todos
 app.post('/todos', function (req, res) {
   dal.addTodo(req.body);
-  const newTodos = dal.getIncompleteTodos();
-  console.log(newTodos);
-  res.render('_incomplete', newTodos)
+  res.redirect('/')
 })
 
 //separating complete todos
 app.post('/complete', function (req, res) {
-  const completeTodos = dal.getCompleteTodos();
-  console.log(completeTodos)
-  res.render('_complete', completeTodos)
+  const finishedTodo = req.body;
+  res.send(finishedTodo);
+
 })
-
-//To do from here (haha): create partials for complete and incomplete; incomplete partials should be populated from addToDo. Incomplete partial needs buttons with onclick function to post to app.post /complete, which will filter array based on complete ones. Complete ones will push to complete partial. Style it out.
-
-//wait, why two partials? Just do one and have it populate in two places. Can I do that?
-
-
-
 //setting the port
 app.set('port', 3000)
 
