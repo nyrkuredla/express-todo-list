@@ -1,6 +1,7 @@
 <span class="incomplete">
-  {{text}}
   <form id="form" action="/complete/{{id}}" method="POST">
+    {{text}}
     <input type="submit" name="submit" value="I did it!" data-id={{id}}>
+    <a href="/edit/{{id}}">I changed my mind.</a>
   </form>
 </span>

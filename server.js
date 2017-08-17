@@ -36,6 +36,17 @@ app.post('/complete/:id', function (req, res) {
   res.redirect('/');
 })
 
+//editing todos
+app.get('/edit/:id', function (req, res){
+  let chosenItem = dal.getTodo(req.params.id)
+  res.render('edititem', chosenItem)
+})
+
+app.post('/edit/:id', function(req, res){
+  dal.editTodo(req.params.id, req.body)
+  res.redirect('/');
+})
+
 //setting the port
 app.set('port', 3000)
 

@@ -1,4 +1,4 @@
-//todo (hahaha): ids will be used to identify items to be changed to "complete" for sorting functions I already have. add edit function: link on index page next to complete button for each todo leads to a new 'edit' page (app.get('/edit/:id')) specific to the item id, with a form that when submitted has a post request (app.post('/edit/:id')).
+//todo (hahaha): add edit function: link on index page next to complete button for each todo leads to a new 'edit' page (app.get('/edit/:id')) specific to the item id, with a form that when submitted has a post request (app.post('/edit/:id')).
 
 //edit item function: by item id, it will change that item in the array. we need both new text and to identify the old text. function editItem (itemId, newText). newText will be set as the new text attribute using map. return todoArr.map(function (item) { if (itemId == item.id) {item.text = newText, return item}, else {return item}. Picking out and changing just one item based on the ID, in other words. Don't forget to export the function.
 
@@ -11,6 +11,12 @@ let todos = require('./todos')
 function getTodos () {
 
   return todos;
+}
+
+function getTodo (itemId) {
+  return todos.find(function (item) {
+    return itemId == item.id
+  })
 }
 
 
@@ -34,6 +40,15 @@ function finishTodo (itemId) {
   })
 }
 
+function editTodo(itemId, updatedItem){
+  return todos.map(function(item){
+    if(itemId == item.id){
+      item.text = updatedItem.editItem;
+      item.complete = false;
+      return item
+    }
+  })
+}
 
 function getCompleteTodos () {
   let completeTodos = todos.filter(function (todo, idx, arr) {
@@ -49,9 +64,12 @@ function getIncompleteTodos () {
   return incompleteTodos
 }
 
+
 module.exports = {
   getTodos: getTodos,
+  getTodo: getTodo,
   addTodo: addTodo,
+  editTodo: editTodo,
   finishTodo: finishTodo,
   getCompleteTodos: getCompleteTodos,
   getIncompleteTodos: getIncompleteTodos
