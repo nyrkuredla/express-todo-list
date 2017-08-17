@@ -4,6 +4,7 @@ const mustacheExpress = require('mustache-express');
 const dal = require('./dal');
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
+const routes = require('./routes/routes')
 
 //setting up mustache stuff
 app.engine('mustache', mustacheExpress())
@@ -17,35 +18,9 @@ app.use(express.static('public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-//get request for homepage
-app.get('/', function (req, res) {
-  const completeTodos = dal.getCompleteTodos();
-  const newTodos = dal.getIncompleteTodos();
-  res.render('index', { incomplete: newTodos, complete: completeTodos})
-})
+//routes
+app.use('/', routes)
 
-//posting new todos
-app.post('/todos', function (req, res) {
-  dal.addTodo(req.body);
-  res.redirect('/')
-})
-
-//changing incomplete todos to complete after button press on index
-app.post('/complete/:id', function (req, res) {
-  dal.finishTodo(req.params.id);
-  res.redirect('/');
-})
-
-//editing todos
-app.get('/edit/:id', function (req, res){
-  let chosenItem = dal.getTodo(req.params.id)
-  res.render('edititem', chosenItem)
-})
-
-app.post('/edit/:id', function(req, res){
-  dal.editTodo(req.params.id, req.body)
-  res.redirect('/');
-})
 
 //setting the port
 app.set('port', 3000)
