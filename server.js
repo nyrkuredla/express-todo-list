@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 //get request for homepage
 app.get('/', function (req, res) {
-  const completeTodos = dal.getCompleteTodos()
+  const completeTodos = dal.getCompleteTodos();
   const newTodos = dal.getIncompleteTodos();
   res.render('index', { incomplete: newTodos, complete: completeTodos})
 })
@@ -30,12 +30,12 @@ app.post('/todos', function (req, res) {
   res.redirect('/')
 })
 
-//separating complete todos
-app.post('/complete', function (req, res) {
-  const finishedTodo = req.body;
-  res.send(finishedTodo);
-
+//changing incomplete todos to complete after button press on index
+app.post('/complete/:id', function (req, res) {
+  dal.finishTodo(req.params.id);
+  res.redirect('/');
 })
+
 //setting the port
 app.set('port', 3000)
 
